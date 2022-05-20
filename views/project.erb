@@ -2,19 +2,3 @@
 
 
 <a href='/projects/<%=@projects.id%>/edit'>Edit Project</a>
-
-<form action="/projects" method="post">
-  <div class="form-group">
-    <label for="title">Change Project Title</label>
-    <input id="title" name="title" class="form-control" type="text">
-  </div>
-  <button type="submit" class="btn">Update Project</button>
-</form>
-<a href="/">Return to project list</a>
-
-
-<form action="/projects/<%= @projects.id %>" method="post">
-  <input name="_method" type="hidden" value="delete">
-
-  <button type="submit">Delete Project</button>
-</form>

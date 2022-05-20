@@ -31,6 +31,7 @@ end
 
 get('/projects/:id') do
   @projects = Project.find(params[:id].to_i)
+  @vol = Volunteer.all
   erb(:project)
 end
 
@@ -56,4 +57,9 @@ delete('/projects/:id') do
   @project.delete()
   @projects = Project.all
   erb(:projects)
+end
+
+get('/projects/:project_id') do
+  @vol = Volunteer.all
+  erb(:volunteers)
 end

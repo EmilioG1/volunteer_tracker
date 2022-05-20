@@ -1,0 +1,21 @@
+<h3>Volunteers</h3>
+
+<% if @vol.any? %>
+  <ul>
+    <% @vol.each do |v| %>
+      <li><a href="/projects/<%= v.id %>"><%= v.title %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no volunteers assigned to this project.</p>
+<% end %>
+
+<h3>Add a new volunteer</h3>
+
+<form action="/projects" method="post">
+  <div class="form-group">
+    <label for="name">Volunteer name</label>
+    <input id="name" name="title" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Add volunteer</button>
+</form>
