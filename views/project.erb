@@ -1,19 +1,9 @@
 <h4>Project Title: "<%= @projects.title %>"</h4>
 
 
-  <% if @project.title %>
-    <ul>
-      <% @projects.title.each do |vol| %>
-        <li><a href="/project/<%= @projects.id %>/volunteers/<%= vol.id %>"><%= vol.name %></a></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>There are no volunteers listed for this project yet.</p>
-  <% end %>
+<a href='/projects/<%=@projects.id%>/edit'>Edit Project</a>
 
-<h3>Update a project</h3>
-
-<form action="/project" method="post">
+<form action="/projects" method="post">
   <div class="form-group">
     <label for="title">Change Project Title</label>
     <input id="title" name="title" class="form-control" type="text">
@@ -21,3 +11,10 @@
   <button type="submit" class="btn">Update Project</button>
 </form>
 <a href="/">Return to project list</a>
+
+
+<form action="/projects/<%= @projects.id %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+
+  <button type="submit">Delete Project</button>
+</form>

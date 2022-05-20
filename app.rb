@@ -23,9 +23,11 @@ get('/projects') do
   erb(:projects)
 end
 
-get('/projects/new') do
-
+get('/projects/:id/edit') do
+  @projects = Project.find(params[:id].to_i)
+  erb(:edit_project)
 end
+
 
 get('/projects/:id') do
   @projects = Project.find(params[:id].to_i)
@@ -41,14 +43,17 @@ post('/projects') do
   erb(:projects)
 end
 
-get('/projects/:id/edit') do
-  @projects = Project.find(params[:id].to_i)
-  erb(:project)
-end
 
 patch('/projects/:id') do
   @project = Project.find(params[:id].to_i())
   @project.update(params[:title])
-  @projects = Album.all
+  @projects = Project.all
   erb(:project)
+end
+
+delete('/projects/:id') do
+  @project = Project.find(params[:id])
+  @project.delete()
+  @projects = Project.all
+  erb(:projects)
 end

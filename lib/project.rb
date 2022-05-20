@@ -32,8 +32,8 @@ class Project
 
   def self.find(id)
     projects = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
-    title = projects.fetch("title")
     id = projects.fetch("id").to_i
+    title = projects.fetch("title")
     Project.new({:title => title, :id => id})
   end
 
