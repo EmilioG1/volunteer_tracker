@@ -16,17 +16,17 @@ class Volunteer
     (self.name == vol_to_compare.name) && (self.project_id == vol_to_compare.project_id) && (self.id == vol_to_compare.id)
   end
 
-  # def self.all
-  #   returned_trains = DB.exec("SELECT * FROM trains;")
-  #   trains = []
-  #   returned_trains.each() do |train|
-  #     name = train.fetch("name")
-  #     id = train.fetch("id").to_i
-  #     time_id = train.fetch("time_id").to_i
-  #     trains.push(Train.new({:name => name, :id => id, :time_id => time_id}))
-  #   end
-  #   trains
-  # end
+  def self.all
+    returned_vols = DB.exec("SELECT * FROM volunteers;")
+    vols = []
+    returned_vols.each() do |vol|
+      name = vol.fetch("name")
+      id = vol.fetch("id").to_i
+      project_id = vol.fetch("project_id").to_i
+      vols.push(Volunteer.new({:name => name, :id => id, :project_id => project_id}))
+    end
+    vols
+  end
 
 
   def save 
