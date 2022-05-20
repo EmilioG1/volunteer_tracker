@@ -12,6 +12,7 @@ DB = PG.connect({:dbname => "volunteer_tracker"})
 # As a non-profit employee, I want to view and add volunteers.
 # As a non-profit employee, I want to add volunteers to a project.
 
+# home page 
 get('/') do
   @projects = Project.all
   erb(:projects)
@@ -23,17 +24,12 @@ get('/projects') do
 end
 
 get('/projects/new') do
-  erb(:new_project)
+
 end
 
 get('/projects/:id') do
   @projects = Project.find(params[:id].to_i)
   erb(:project)
-end
-
-get('/projects/:id/edit') do
-  @projects = Project.find(params[:id].to_i)
-  erb(:edit_project)
 end
 
 post('/projects') do
@@ -43,4 +39,16 @@ post('/projects') do
   project.save
   @projects = Project.all
   erb(:projects)
+end
+
+get('/projects/:id/edit') do
+  @projects = Project.find(params[:id].to_i)
+  erb(:project)
+end
+
+patch('/projects/:id') do
+  @project = Project.find(params[:id].to_i())
+  @project.update(params[:title])
+  @projects = Album.all
+  erb(:project)
 end
