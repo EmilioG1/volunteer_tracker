@@ -23,18 +23,6 @@ get('/projects') do
   erb(:projects)
 end
 
-get('/projects/:id/edit') do
-  @projects = Project.find(params[:id].to_i)
-  erb(:edit_project)
-end
-
-
-get('/projects/:id') do
-  @projects = Project.find(params[:id].to_i)
-  @vol = Volunteer.all
-  erb(:project)
-end
-
 post('/projects') do
   title = params[:title]
   id = params[:id]
@@ -44,22 +32,57 @@ post('/projects') do
   erb(:projects)
 end
 
-
-patch('/projects/:id') do
-  @project = Project.find(params[:id].to_i())
-  @project.update(params[:title])
-  @projects = Project.all
+get('/projects/:id') do
+  @project = Project.find(params[:id].to_i)
+  # @vol = Volunteer.all
   erb(:project)
 end
 
+patch('/projects/:id') do
+  project = Project.find(params[:id].to_i)
+  title = params[:title]
+  project.update({:title => title, :id =>project.id})
+  @projects = Project.all
+  erb(:projects)
+end
+
+# specify which params to pull out of update submission
 delete('/projects/:id') do
-  @project = Project.find(params[:id])
+  @project = Project.find(params[:id].to_i)
   @project.delete()
   @projects = Project.all
   erb(:projects)
 end
 
-get('/projects/:project_id') do
-  @vol = Volunteer.all
-  erb(:volunteers)
+get('/projects/:id/edit') do
+  @project = Project.find(params[:id].to_i)
+  erb(:edit_project)
+end
+
+
+get('/projects/:id/volunteers/:vol_id') do
+  @vol = Volunteer.find(params[:vol_id].to_i)
+  erb(:volunteer)
+end
+
+post('/projects/:id/volunteers') do
+  @project = Project.find(params[:id].to_i)
+  volunteer = Volunteer.new({:name => params[:name], :project_id => @project.id, :id => nil})
+  volunteer.save
+  erb(:project)
+end
+
+patch('projects/:id/volunteers/:vol_id') do
+  @project = Project.find(params[:id].to_i)
+  vol = Volunteer.find(params[:vol_id].to_i)
+  name = params[:name]
+  vol.update({:name => name, :id => project.id})
+  erb(:project)
+end
+
+delete('projects/:id/volunteers/:vol_id') do
+  vol = Volunteer.find(params[:vol_id].to_i)
+  vol.delete
+  @project = Project.find(params[:id].to_i)
+  erb(:project)
 end

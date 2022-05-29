@@ -10,10 +10,11 @@
 * _RSpec_
 * _Pry_
 * _Capybara_
+* _Sinatra_
 
 ## Description
 _A database program designed for non-profits to track their projects, as well as their volunteers._
-
+exit
 ## Setup/Installation Requirements
 * _Clone this repository to your desktop_
 * _Navigate to the top level of volunteer_tracker main branch and open in code editor_

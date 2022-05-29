@@ -40,4 +40,8 @@ class Volunteer
     project_id = vols.fetch("project_id").to_i
     Volunteer.new({:name => name, :id => id, :project_id => project_id})
   end
+
+  def project
+    Project.find(@project_id)
+  end
 end

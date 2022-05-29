@@ -31,29 +31,26 @@ class Project
   end
 
   def self.find(id)
-    projects = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
-    id = projects.fetch("id").to_i
-    title = projects.fetch("title")
+    project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
+    id = project.fetch("id").to_i
+    title = project.fetch("title")
     Project.new({:title => title, :id => id})
   end
 
   def volunteers
     vols = []
-    results = DB.exec("SELECT id FROM volunteers WHERE project_id = #{@id};")
+    results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
     results.each do |result|
       vol_id = result.fetch("id").to_i
-      volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{vol_id};")
-      name = volunteer.first.fetch("name")
-      vols.push(Volunteer.new({:name => name, :project_id => id, :id => vol_id}))
+      name = result.fetch("name")
+      vols.push(Volunteer.new({:name => name, :project_id => self.id, :id => vol_id}))
     end
     vols
   end
 
   def update(attributes)
-    if (attributes.has_key?(:title)) && (attributes.fetch(:title) != nil)
-      @title = attributes.fetch(:title)
-      DB.exec("UPDATE projects SET title = '#{title}' WHERE id = #{id};")
-    end
+    @title = attributes.fetch(:title)
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
   end
 
   def delete
