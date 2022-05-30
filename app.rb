@@ -71,18 +71,3 @@ post('/projects/:id/volunteers') do
   volunteer.save
   erb(:project)
 end
-
-patch('projects/:id/volunteers/:vol_id') do
-  @project = Project.find(params[:id].to_i)
-  vol = Volunteer.find(params[:vol_id].to_i)
-  name = params[:name]
-  vol.update({:name => name, :id => project.id})
-  erb(:project)
-end
-
-delete('projects/:id/volunteers/:vol_id') do
-  vol = Volunteer.find(params[:vol_id].to_i)
-  vol.delete
-  @project = Project.find(params[:id].to_i)
-  erb(:project)
-end
